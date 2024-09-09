@@ -1,5 +1,6 @@
 package com.gilandrey.workshopmongo.resources;
 
+import com.gilandrey.workshopmongo.domain.Post;
 import com.gilandrey.workshopmongo.domain.User;
 import com.gilandrey.workshopmongo.dto.UserDTO;
 import com.gilandrey.workshopmongo.services.UserService;
@@ -40,6 +41,7 @@ public class UserResource {
         return ResponseEntity.created(uri).build();
     }
 
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity <Void> delete(@PathVariable String id){
         service.delete(id);
@@ -52,5 +54,11 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity <List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
