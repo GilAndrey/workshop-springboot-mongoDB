@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@Document
+@Document(collection = "post")
 public class Post implements Serializable {
 
     @Id
